@@ -11,15 +11,6 @@ from homeassistant.components.aemet.const import ATTRIBUTION, DOMAIN
 from homeassistant.components.aemet.coordinator import WEATHER_UPDATE_INTERVAL
 from homeassistant.components.weather import (
     ATTR_CONDITION_SNOWY,
-    ATTR_FORECAST,
-    ATTR_FORECAST_CONDITION,
-    ATTR_FORECAST_PRECIPITATION,
-    ATTR_FORECAST_PRECIPITATION_PROBABILITY,
-    ATTR_FORECAST_TEMP,
-    ATTR_FORECAST_TEMP_LOW,
-    ATTR_FORECAST_TIME,
-    ATTR_FORECAST_WIND_BEARING,
-    ATTR_FORECAST_WIND_SPEED,
     ATTR_WEATHER_HUMIDITY,
     ATTR_WEATHER_PRESSURE,
     ATTR_WEATHER_TEMPERATURE,
@@ -33,7 +24,6 @@ from homeassistant.components.weather import (
 from homeassistant.const import ATTR_ATTRIBUTION
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
-import homeassistant.util.dt as dt_util
 
 from .util import async_init_integration, mock_api_call
 
