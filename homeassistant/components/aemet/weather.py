@@ -115,11 +115,6 @@ class AemetWeather(
         cond = self.get_aemet_value([AOD_WEATHER, AOD_CONDITION])
         return CONDITIONS_MAP.get(cond)
 
-    @property
-    def forecast(self) -> list[Forecast]:
-        """Return the forecast array."""
-        return self.get_aemet_forecast(self._forecast_mode)
-
     @callback
     def _async_forecast_daily(self) -> list[Forecast]:
         """Return the daily forecast in native units."""

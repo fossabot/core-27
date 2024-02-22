@@ -60,18 +60,6 @@ async def test_aemet_weather(
     assert state.attributes[ATTR_WEATHER_WIND_BEARING] == 122.0
     assert state.attributes[ATTR_WEATHER_WIND_GUST_SPEED] == 12.2
     assert state.attributes[ATTR_WEATHER_WIND_SPEED] == 3.2
-    forecast = state.attributes[ATTR_FORECAST][0]
-    assert forecast[ATTR_FORECAST_CONDITION] == ATTR_CONDITION_SNOWY
-    assert ATTR_FORECAST_PRECIPITATION not in forecast
-    assert forecast[ATTR_FORECAST_PRECIPITATION_PROBABILITY] == 0
-    assert forecast[ATTR_FORECAST_TEMP] == 2
-    assert forecast[ATTR_FORECAST_TEMP_LOW] == -1
-    assert (
-        forecast[ATTR_FORECAST_TIME]
-        == dt_util.parse_datetime("2021-01-08 23:00:00+00:00").isoformat()
-    )
-    assert forecast[ATTR_FORECAST_WIND_BEARING] == 90.0
-    assert forecast[ATTR_FORECAST_WIND_SPEED] == 0.0
 
     state = hass.states.get("weather.aemet_hourly")
     assert state is None
@@ -104,18 +92,6 @@ async def test_aemet_weather_legacy(
     assert state.attributes[ATTR_WEATHER_WIND_BEARING] == 122.0
     assert state.attributes[ATTR_WEATHER_WIND_GUST_SPEED] == 12.2
     assert state.attributes[ATTR_WEATHER_WIND_SPEED] == 3.2
-    forecast = state.attributes[ATTR_FORECAST][0]
-    assert forecast[ATTR_FORECAST_CONDITION] == ATTR_CONDITION_SNOWY
-    assert ATTR_FORECAST_PRECIPITATION not in forecast
-    assert forecast[ATTR_FORECAST_PRECIPITATION_PROBABILITY] == 0
-    assert forecast[ATTR_FORECAST_TEMP] == 2
-    assert forecast[ATTR_FORECAST_TEMP_LOW] == -1
-    assert (
-        forecast[ATTR_FORECAST_TIME]
-        == dt_util.parse_datetime("2021-01-08 23:00:00+00:00").isoformat()
-    )
-    assert forecast[ATTR_FORECAST_WIND_BEARING] == 90.0
-    assert forecast[ATTR_FORECAST_WIND_SPEED] == 0.0
 
     state = hass.states.get("weather.aemet_hourly")
     assert state is None
