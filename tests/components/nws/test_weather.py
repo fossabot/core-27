@@ -37,8 +37,6 @@ from .const import (
 from tests.common import MockConfigEntry, async_fire_time_changed
 from tests.typing import WebSocketGenerator
 
-ATTR_FORECAST = "forecast"
-
 
 @pytest.mark.parametrize(
     ("units", "result_observation", "result_forecast"),
@@ -87,10 +85,6 @@ async def test_imperial_metric(
     data = state.attributes
     for key, value in result_observation.items():
         assert data.get(key) == value
-
-    forecast = data.get(ATTR_FORECAST)
-    for key, value in result_forecast.items():
-        assert forecast[0].get(key) == value
 
     state = hass.states.get("weather.abc_daynight")
 
@@ -161,9 +155,6 @@ async def test_none(hass: HomeAssistant, mock_simple_nws, no_sensor) -> None:
     data = state.attributes
     for key in WEATHER_EXPECTED_OBSERVATION_IMPERIAL:
         assert data.get(key) is None
-
-    forecast = data.get(ATTR_FORECAST)
-    assert forecast is None
 
 
 async def test_error_station(hass: HomeAssistant, mock_simple_nws, no_sensor) -> None:
