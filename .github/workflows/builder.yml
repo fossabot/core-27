@@ -227,70 +227,70 @@ jobs:
           path: translations.tar.gz
           if-no-files-found: error
 
-  # build_machine:
-  #   name: Build ${{ matrix.machine }} machine core image
-  #   if: github.repository_owner == 'home-assistant'
-  #   needs: ["init", "build_base"]
-  #   runs-on: ubuntu-latest
-  #   permissions:
-  #     contents: read
-  #     packages: write
-  #     id-token: write
-  #   strategy:
-  #     matrix:
-  #       machine:
-  #         - generic-x86-64
-  #         - intel-nuc
-  #         - khadas-vim3
-  #         - odroid-c2
-  #         - odroid-c4
-  #         - odroid-m1
-  #         - odroid-n2
-  #         - odroid-xu
-  #         - qemuarm
-  #         - qemuarm-64
-  #         - qemux86
-  #         - qemux86-64
-  #         - raspberrypi
-  #         - raspberrypi2
-  #         - raspberrypi3
-  #         - raspberrypi3-64
-  #         - raspberrypi4
-  #         - raspberrypi4-64
-  #         - raspberrypi5-64
-  #         - tinker
-  #         - yellow
-  #         - green
-  #   steps:
-  #     - name: Checkout the repository
-  #       uses: actions/checkout@v4.1.1
+  build_machine:
+    name: Build ${{ matrix.machine }} machine core image
+    if: github.repository_owner == 'home-assistant'
+    needs: ["init", "build_base"]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    strategy:
+      matrix:
+        machine:
+          - generic-x86-64
+          - intel-nuc
+          - khadas-vim3
+          - odroid-c2
+          - odroid-c4
+          - odroid-m1
+          - odroid-n2
+          - odroid-xu
+          - qemuarm
+          - qemuarm-64
+          - qemux86
+          - qemux86-64
+          - raspberrypi
+          - raspberrypi2
+          - raspberrypi3
+          - raspberrypi3-64
+          - raspberrypi4
+          - raspberrypi4-64
+          - raspberrypi5-64
+          - tinker
+          - yellow
+          - green
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4.1.1
 
-  #     - name: Set build additional args
-  #       run: |
-  #         # Create general tags
-  #         if [[ "${{ needs.init.outputs.version }}" =~ d ]]; then
-  #           echo "BUILD_ARGS=--additional-tag dev" >> $GITHUB_ENV
-  #         elif [[ "${{ needs.init.outputs.version }}" =~ b ]]; then
-  #           echo "BUILD_ARGS=--additional-tag beta" >> $GITHUB_ENV
-  #         else
-  #           echo "BUILD_ARGS=--additional-tag stable" >> $GITHUB_ENV
-  #         fi
+      - name: Set build additional args
+        run: |
+          # Create general tags
+          if [[ "${{ needs.init.outputs.version }}" =~ d ]]; then
+            echo "BUILD_ARGS=--additional-tag dev" >> $GITHUB_ENV
+          elif [[ "${{ needs.init.outputs.version }}" =~ b ]]; then
+            echo "BUILD_ARGS=--additional-tag beta" >> $GITHUB_ENV
+          else
+            echo "BUILD_ARGS=--additional-tag stable" >> $GITHUB_ENV
+          fi
 
-  #     - name: Login to GitHub Container Registry
-  #       uses: docker/login-action@v3.0.0
-  #       with:
-  #         registry: ghcr.io
-  #         username: ${{ github.repository_owner }}
-  #         password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3.0.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-  #     - name: Build base image
-  #       uses: home-assistant/builder@2024.01.0
-  #       with:
-  #         args: |
-  #           $BUILD_ARGS \
-  #           --target /data/machine \
-  #           --cosign \
-  #           --machine "${{ needs.init.outputs.version }}=${{ matrix.machine }}"
+      - name: Build base image
+        uses: home-assistant/builder@2024.01.0
+        with:
+          args: |
+            $BUILD_ARGS \
+            --target /data/machine \
+            --cosign \
+            --machine "${{ needs.init.outputs.version }}=${{ matrix.machine }}"
 
   # publish_ha:
   #   name: Publish version files
