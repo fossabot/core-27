@@ -16,13 +16,8 @@ ARG QEMU_CPU
 
 # Set shell
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
-RUN mkdir -p /root/.cargo/bin/
-COPY uv.zip /root/.cargo/bin/
-WORKDIR /root/.cargo/bin/
-RUN unzip uv.zip && \
-    chmod +x /root/.cargo/bin/uv && \
-    rm -f /root/.cargo/bin/uv.zip
-RUN uv --version
+# Install uv
+RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/astral-sh/uv/releases/download/0.1.21/uv-installer.sh | sh
 
 WORKDIR /usr/src
 
