@@ -15,17 +15,12 @@ FROM ${{BUILD_FROM}}
 # Synchronize with homeassistant/core.py:async_stop
 ENV \
     S6_SERVICES_GRACETIME={timeout} \
-    UV_EXTRA_INDEX_URL="https://wheels.home-assistant.io/musllinux-index/" \
-    UV_NO_CACHE=true \
-    PATH="$PATH:/root/.cargo/bin" \
     UV_SYSTEM_PYTHON=true
 
 ARG QEMU_CPU
 
-# Set shell
-SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 # Install uv
-RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/astral-sh/uv/releases/download/{uv_version}/uv-installer.sh | sh
+RUN pip3 install uv=={uv_version}
 
 WORKDIR /usr/src
 
