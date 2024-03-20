@@ -105,7 +105,6 @@ from .test_util.aiohttp import (  # noqa: E402, isort:skip
     mock_aiohttp_client,
 )
 
-
 _LOGGER = logging.getLogger(__name__)
 
 logging.basicConfig(level=logging.INFO)
@@ -114,6 +113,10 @@ logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
 asyncio.set_event_loop_policy(runner.HassEventLoopPolicy(False))
 # Disable fixtures overriding our beautiful policy
 asyncio.set_event_loop_policy = lambda policy: None
+
+pytest_plugins = [
+    "tests.fixtures.pytest.light",
+]
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
@@ -993,7 +996,7 @@ async def _mqtt_mock_entry(
         nonlocal mock_mqtt_instance
         nonlocal real_mqtt_instance
         real_mqtt_instance = real_mqtt(*args, **kwargs)
-        spec = dir(real_mqtt_instance) + ["_mqttc"]
+        spec = [*dir(real_mqtt_instance), "_mqttc"]
         mock_mqtt_instance = MqttMockHAClient(
             return_value=real_mqtt_instance,
             spec_set=spec,
