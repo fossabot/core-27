@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fq20%2Fcore.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fq20%2Fcore?ref=badge_shield)
+
 Home Assistant |Chat Status|
 =================================================================================
 
@@ -26,3 +28,6 @@ of a component, check the `Home Assistant help section <https://home-assistant.i
    :target: https://demo.home-assistant.io
 .. |screenshot-integrations| image:: https://raw.githubusercontent.com/home-assistant/core/dev/.github/assets/screenshot-integrations.png
    :target: https://home-assistant.io/integrations/
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fq20%2Fcore.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fq20%2Fcore?ref=badge_large)
